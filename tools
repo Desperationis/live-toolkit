@@ -1,0 +1,17 @@
+#!/bin/bash
+
+
+removedir() {
+	if [[ -d $1 ]] 
+	then
+		sudo rm -rf "$1"
+	fi
+}
+
+direxists() {
+	if ! [[ -d $1 ]] 
+	then
+		echo "ERROR: $1 does not exist"
+		exit 1
+	fi
+}

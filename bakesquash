@@ -1,0 +1,22 @@
+#!/bin/bash
+
+source ./tools
+
+if [[ $# -ne 2 ]]
+then
+	echo "Usage: $0 original.iso file.squashfs"
+	echo ""
+	echo "Bakes (mounts) an existing .squashfs filesystem into the toolkit using a known good iso as a base. Very useful in cases you need to scanvenge a LiveCD from a usb."
+	exit 1
+fi
+
+./clean
+
+mkdir mnt
+sudo mount -o loop "$1" mnt/
+
+mkdir extract-cd 
+sudo rsync --exclude=/casper/filesystem.squashfs -a mnt/ extract-cd/
+
+sudo unsquashfs $2
+sudo mv squashfs-root edit

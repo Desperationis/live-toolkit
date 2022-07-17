@@ -1,0 +1,14 @@
+#!/bin/bash
+
+source ./tools
+
+if [[ -d mnt ]] 
+then
+	sudo umount mnt
+	rm -rf mnt
+fi
+
+removedir extract-cd
+removedir edit
+
+rm *.conf

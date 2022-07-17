@@ -1,0 +1,32 @@
+#!/bin/bash
+
+if ! [[ -d edit ]]
+then
+	echo "ERROR: edit/ does not exist."
+	exit 1
+fi
+
+# For DNS
+sudo mount -o bind /run edit/run
+
+# Mount pseudo-filesystems
+sudo mount --bind /dev edit/dev
+sudo chroot edit /bin/bash << "EOT"
+mount -t proc none /proc
+mount -t sysfs none /sys
+mount -t devpts none /dev/pts
+EOT
+
+sudo chroot edit /bin/bash
+
+# Cleanup
+sudo chroot edit /bin/bash << "EOT"
+apt clean
+rm -rf /tmp/* ~/.bash_history
+rm /var/lib/dbus/machine-id
+umount /proc || umount -lf /proc
+umount /sys
+umount /dev/pts
+umount /dev
+EOT
+sudo umount edit/run

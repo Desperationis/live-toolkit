@@ -1,0 +1,49 @@
+#!/bin/bash
+source ./tools
+
+if [[ $# -ne 2 ]]
+then
+	echo "Usage: $0 originalfile.iso customfile.iso"
+	exit 1
+fi
+
+if ! direxists edit || ! direxists mnt || ! direxists extract-cd
+then
+	exit 1
+fi
+
+# Rebuild list of packages
+sudo chmod +w extract-cd/casper/filesystem.manifest
+sudo chroot edit dpkg-query -W --showformat='${Package} ${Version}\n' > extract-cd/casper/filesystem.manifest
+
+# Compress filesystem
+sudo rm -rf extract-cd/casper/filesystem.squashfs
+sudo mksquashfs edit extract-cd/casper/filesystem.squashfs
+
+# Update filesystem size
+sudo printf $(du -sx --block-size=1 edit | cut -f1) > extract-cd/casper/filesystem.size
+
+# Rebuilt md5sum
+cd extract-cd
+sudo rm md5sum.txt
+sudo find -type f -print0 | sudo xargs -0 md5sum | grep -v isolinux/boot.cat | sudo tee md5sum.txt
+cd ..
+
+## TODO ADD COMENTS
+
+# Add initial options first
+sudo cat <<EOF >xorriso.conf
+-as mkisofs \\
+-r -J --joliet-long \\
+-iso-level 3 \\
+-o $2 \\
+EOF
+# Use xorriso do the magic of figuring out options used to create original iso, making sure
+# to append backslash to each line as required.
+sudo xorriso -report_about warning -indev "$1" -report_system_area as_mkisofs |
+    sed -e 's|$| \\|'>>xorriso.conf
+# Tell xorriso the root directory for the iso being created
+echo 'extract-cd' >>xorriso.conf
+
+# Modify options in xorriso.conf as desired or use as-is
+sudo xorriso -options_from_file xorriso.conf
