@@ -11,10 +11,7 @@ then
 	exit 1
 fi
 
-./clean
-
-mkdir mnt
-sudo mount -o loop "$1" mnt/
+./preview $1
 
 mkdir extract-cd 
 sudo rsync --exclude=$SQUASHFS_DIR -a mnt/ extract-cd/

@@ -1,0 +1,17 @@
+#!/bin/bash
+
+source ./tools
+source ./config
+
+if [[ $# -ne 1 ]]
+then
+	echo "Usage: $0 file.iso"
+	echo ""
+	echo "Mounts an iso to a loop device to preview what's on it. Great for making a custom config for a specific iso."
+	exit 1
+fi
+
+./clean
+
+mkdir mnt
+sudo mount -o loop "$1" mnt/
