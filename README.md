@@ -1,8 +1,10 @@
 # live-toolkit
-Shell scripts that aid in customizing Ubuntu LiveCD's. Only tested with Ubuntu 20.04, SHA256 `f92f7dca5bb6690e1af`. Based on https://help.ubuntu.com/community/LiveCDCustomization
+Shell scripts that aid in customizing ANY LiveCD. Tested with Ubuntu 20.04, SHA256 `f92f7dca5bb6690e1af` and various others debian-based distros. Method is based on https://help.ubuntu.com/community/LiveCDCustomization
 
 # Usage
-`./mount file.iso` - Mounts a Ubuntu LiveCD installer ISO, extracts its data, and unsquashes `filesystem.squashfs`. Safe to call multiple times.
+`./preview file.iso` - Simply mounts a LiveCD so you can inspect its contents in mnt/
+
+`./mount file.iso` - Mounts a LiveCD ISO, extracts its data, and unsquashes `filesystem.squashfs`. Safe to call multiple times.
 
 `./chroot` - Mounts required directories and chroots into the extracted squashfs using /bin/bash. `exit` must be called within the chroot to exit safely, otherwise you'll need to reboot your system to fix `/dev`.
 
@@ -13,6 +15,8 @@ Shell scripts that aid in customizing Ubuntu LiveCD's. Only tested with Ubuntu 2
 `./bakesquash original.iso filesystem.squashfs` - "Bakes" a filesystem.squashfs file from some other custom ISO (say a USB) into a known good LiveCD ISO. Very useful if you need to recover from a single USB image. 
 
 `./tools` - Misc bash functions for scripts. 
+
+`./config` - This is the file that contains the LiveCD-specific directories of some things. You can configure this to fit other LiveCDs with ease. 
 
 # Other Info
 ### ISO won't boot up
