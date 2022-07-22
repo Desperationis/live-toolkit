@@ -1,0 +1,16 @@
+#!/bin/bash
+
+
+SQUASHFS_DIR=/casper/filesystem.squashfs
+PACKAGE_MANIFEST=/casper/filesystem.manifest
+
+# May not be needed in some cases (i.e. no installer)
+SIZE_MANIFEST=/casper/filesystem.size
+
+
+CHECKSUM_COMMAND=md5sum
+CHECKSUM_FILE=/md5sum.txt
+CHECKSUM_IGNORE_DIR=/isolinux/boot.cat
+
+
+ISO_LEVEL=3

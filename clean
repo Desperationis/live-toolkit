@@ -11,4 +11,7 @@ fi
 removedir extract-cd
 removedir edit
 
-rm *.conf
+if find . -maxdepth 1 | grep -E "[a-zA-Z]+.conf" 
+then
+	rm *.conf
+fi

@@ -1,6 +1,7 @@
 #!/bin/bash
 
 source ./tools
+source ./config
 
 if [[ $# -eq 0 ]]
 then
@@ -8,23 +9,17 @@ then
 	exit 1
 fi
 
-if [[ -d mnt ]] 
-then
-	sudo umount mnt
-	rm -rf mnt
-fi
+./clean
 
 mkdir mnt
 
 sudo mount -o loop "$1" mnt/
 
-removedir extract-cd
-removedir edit
 
 mkdir extract-cd 
-sudo rsync --exclude=/casper/filesystem.squashfs -a mnt/ extract-cd/
+sudo rsync --exclude=$SQUASHFS_DIR -a mnt/ extract-cd/
 
-sudo unsquashfs mnt/casper/filesystem.squashfs
+sudo unsquashfs mnt/$SQUASHFS_DIR
 sudo mv squashfs-root edit
 
 
