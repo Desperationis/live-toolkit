@@ -13,5 +13,5 @@ removedir edit
 
 if find . -maxdepth 1 | grep -E "[a-zA-Z]+.conf" 
 then
-	rm *.conf
+	sudo rm *.conf
 fi
