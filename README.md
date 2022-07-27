@@ -1,6 +1,9 @@
 # live-toolkit
 Shell scripts that aid in customizing ANY LiveCD. Tested with Ubuntu and Pop OS (both 20.04 and 22.04 for each) and various others debian-based distros. Method is based on https://help.ubuntu.com/community/LiveCDCustomization
 
+# Requirements
+`xorriso` and `squashfs-tools` needs to be installed in order to unpack and rebuild the ISO. On debian this can be installed with `sudo apt-get install xorriso squashfs-tools`.
+
 # Usage
 `./preview file.iso` - Simply mounts a LiveCD so you can inspect its contents in mnt/
 
