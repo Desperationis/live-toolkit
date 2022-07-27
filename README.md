@@ -1,5 +1,5 @@
 # live-toolkit
-Shell scripts that aid in customizing ANY LiveCD. Tested with Ubuntu 20.04, SHA256 `f92f7dca5bb6690e1af` and various others debian-based distros. Method is based on https://help.ubuntu.com/community/LiveCDCustomization
+Shell scripts that aid in customizing ANY LiveCD. Tested with Ubuntu and Pop OS (both 20.04 and 22.04 for each) and various others debian-based distros. Method is based on https://help.ubuntu.com/community/LiveCDCustomization
 
 # Usage
 `./preview file.iso` - Simply mounts a LiveCD so you can inspect its contents in mnt/
